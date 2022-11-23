@@ -1,0 +1,189 @@
+s5csebbatch2@an27-System-Product-Name:~$ sudo mysql -u "sreeharip" -p
+[sudo] password for s5csebbatch2: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Company            |
+| college            |
+| company            |
+| information_schema |
+| mysql              |
+| names              |
+| organisations      |
+| patients           |
+| performance_schema |
+| student            |
+| students           |
+| sys                |
+| teachers           |
++--------------------+
+13 rows in set (0.01 sec)
+
+mysql> desc Company;
+ERROR 1046 (3D000): No database selected
+mysql> desc college;
+ERROR 1046 (3D000): No database selected
+mysql> use database company;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use database Company;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use Company;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | NO   |     | NULL    |       |
+| Mname    | varchar(20) | NO   |     | NULL    |       |
+| Lname    | varchar(20) | NO   |     | NULL    |       |
+| Ssn      | int         | NO   | PRI | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  | MUL | NULL    |       |
+| Dno      | int         | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> insert into employee values("Sree","hari","p",1,"2002-10-01","cherpulassery","male",50000,101,5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Company`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`Dno`) REFERENCES `dept` (`dnumber`))
+mysql> alter table employee drop foreign key employee_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values("Sree","hari","p",1,"2002-10-01","cherpulassery","male",50000,101,5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Company`.`employee`, CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`superSSn`) REFERENCES `employee` (`Ssn`))
+mysql> alter table employee drop foreign key employee_ibfk_2;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values("Sree","hari","p",1,"2002-10-01","cherpulassery","male",50000,101,5);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into employee values("vishnu","prasad","c",2,"2001-04-04","kuriyachira","male",50000,102,6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values("lionel","messi","p",3,"1989-03-21","rosario","male",103,7);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee values("lionel","messi","p",3,"1989-03-21","rosario","male",60000,103,7);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  50000 |      102 |   6 |
+| lionel | messi  | p     |   3 | 1989-03-21 | rosario       | male   |  60000 |      103 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where salary > 50000;
++--------+-------+-------+-----+------------+---------+--------+--------+----------+-----+
+| Fname  | Mname | Lname | Ssn | Bdate      | Address | gender | salary | superSSn | Dno |
++--------+-------+-------+-----+------------+---------+--------+--------+----------+-----+
+| lionel | messi | p     |   3 | 1989-03-21 | rosario | male   |  60000 |      103 |   7 |
++--------+-------+-------+-----+------------+---------+--------+--------+----------+-----+
+1 row in set (0.00 sec)
+
+mysql> select Fname,Mname,Lname from employee where salary < 60000;
++--------+--------+-------+
+| Fname  | Mname  | Lname |
++--------+--------+-------+
+| Sree   | hari   | p     |
+| vishnu | prasad | c     |
++--------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set salary = 60000,70000,80000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '70000,80000' at line 2
+mysql> update employee set salary = 60000
+    -> where Ssn = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   6 |
+| lionel | messi  | p     |   3 | 1989-03-21 | rosario       | male   |  60000 |      103 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+3 rows in set (0.00 sec)
+
+mysql> delete from employee where Ssn = 3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   6 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+2 rows in set (0.00 sec)
+
+mysql> select char_length(Fname) from employee;
++--------------------+
+| char_length(Fname) |
++--------------------+
+|                  4 |
+|                  6 |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select upper(Fname) from employee;
++--------------+
+| upper(Fname) |
++--------------+
+| SREE         |
+| VISHNU       |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select lower(Fname) from employee;
++--------------+
+| lower(Fname) |
++--------------+
+| sree         |
+| vishnu       |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select find_in_set(sree,Fname) from employee;
+ERROR 1054 (42S22): Unknown column 'sree' in 'field list'
+mysql> select find in set(sree,Fname) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set(sree,Fname) from employee' at line 1
+mysql> select find in set("sree",Fname) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set("sree",Fname) from employee' at line 1
+mysql> select find_in_set("sree",Fname) from employee;
++---------------------------+
+| find_in_set("sree",Fname) |
++---------------------------+
+|                         1 |
+|                         0 |
++---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+

@@ -1,0 +1,230 @@
+sudo mysql -u root -p
+[sudo] password for s5csebbatch2: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create user "sreeharip" identified by "sreehari@123";
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all on *.* to sreeharip with grant option;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create database company;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use database company;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use company;
+Database changed
+mysql> create table employee(Fname varchar(20),Mname varchar(20),Lname varchar(20),Ssn int,Bdate date,Address varchar(50),gender varchar(20),salary int,superSSn int,Dno int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Mname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(20) | YES  |     | NULL    |       |
+| Ssn      | int         | YES  |     | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  |     | NULL    |       |
+| Dno      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> alter table employee 
+    -> modify column Ssn int primary key;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Mname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(20) | YES  |     | NULL    |       |
+| Ssn      | int         | NO   | PRI | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  |     | NULL    |       |
+| Dno      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> create table department(dname varchar(20),dnumber int primary key,marg_ssn int,marg_start_date int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc department;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| dname           | varchar(20) | YES  |     | NULL    |       |
+| dnumber         | int         | NO   | PRI | NULL    |       |
+| marg_ssn        | int         | YES  |     | NULL    |       |
+| marg_start_date | int         | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table dept_locations(Dno int primary key not null,Dlocation varchar(20) not null);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc dept_locations;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dno       | int         | NO   | PRI | NULL    |       |
+| Dlocation | varchar(20) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table dept_locations
+    -> modify column Dlocation varchar
+    -> ryr
+    -> 
+    -> s;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ryr
+
+s' at line 3
+mysql> alter table dept_locations 
+    -> modify column Dlocation varchar(20) primary key;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> create table project(pname varchar(20) not null,pnumber varchar(20) not null,plocation varchar(20),dnum int not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table project 
+    -> modify column pnumber int primary key;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc project;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| pname     | varchar(20) | NO   |     | NULL    |       |
+| pnumber   | int         | NO   | PRI | NULL    |       |
+| plocation | varchar(20) | YES  |     | NULL    |       |
+| dnum      | int         | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table works_on(essn int primary key not null,pno int not null,hours int not null);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc works_on;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| essn  | int  | NO   | PRI | NULL    |       |
+| pno   | int  | NO   |     | NULL    |       |
+| hours | int  | NO   |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table dependent(essn int primary key,department_name varchar(30) not null,gender varchar(20),bdate int,relationship varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc dependent;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| essn            | int         | NO   | PRI | NULL    |       |
+| department_name | varchar(30) | NO   |     | NULL    |       |
+| gender          | varchar(20) | YES  |     | NULL    |       |
+| bdate           | int         | YES  |     | NULL    |       |
+| relationship    | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee 
+    -> add foreign key superSSn references employee Ssn;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references employee Ssn' at line 2
+mysql> alter table employee
+    -> add foreign key (Dno) references to department (dnumber);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to department (dnumber)' at line 2
+mysql> alter table employee add foreign key (Dno) references department (dnumber);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add foreign key (superSSn) references department (Ssn);
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'Ssn' for constraint 'employee_ibfk_2' in the referenced table 'department'
+mysql> alter table employee add foreign key (superSSn) references employee (Ssn);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add foreign key (marg_ssn) references employee (Ssn);
+ERROR 1072 (42000): Key column 'marg_ssn' doesn't exist in table
+mysql> 
+mysql> alter table department add foreign key (marg_ssn) references employee (Ssn);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department_location  add foreign key (Dno) references department (dnumber);
+ERROR 1146 (42S02): Table 'company.department_location' doesn't exist
+mysql> alter table dept_locations  add foreign key (Dno) references department (dnumber);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dept_locations;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dno       | int         | NO   | PRI | NULL    |       |
+| Dlocation | varchar(20) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table project  add foreign key (dnum) references department (dnumber);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc project;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| pname     | varchar(20) | NO   |     | NULL    |       |
+| pnumber   | int         | NO   | PRI | NULL    |       |
+| plocation | varchar(20) | YES  |     | NULL    |       |
+| dnum      | int         | NO   | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table works_on  add foreign key (essn) references employee (Ssn);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table works_on add foreign key (pno) references project (pnumber);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table dependent  add foreign key (essn) references employee (Ssn);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dependent;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| essn            | int         | NO   | PRI | NULL    |       |
+| department_name | varchar(30) | NO   |     | NULL    |       |
+| gender          | varchar(20) | YES  |     | NULL    |       |
+| bdate           | int         | YES  |     | NULL    |       |
+| relationship    | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
