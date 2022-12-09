@@ -1,0 +1,477 @@
+s5csebbatch2@an27-System-Product-Name:~$ sudo mysql -u "sreeharip" -p
+[sudo] password for s5csebbatch2: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Company            |
+| college            |
+| company            |
+| information_schema |
+| mysql              |
+| names              |
+| organisations      |
+| patients           |
+| performance_schema |
+| student            |
+| students           |
+| sys                |
+| teachers           |
++--------------------+
+13 rows in set (0.01 sec)
+
+mysql> use Company;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | NO   |     | NULL    |       |
+| Mname    | varchar(20) | NO   |     | NULL    |       |
+| Lname    | varchar(20) | NO   |     | NULL    |       |
+| Ssn      | int         | NO   | PRI | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  | MUL | NULL    |       |
+| Dno      | int         | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   6 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+2 rows in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       60000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee;
++-------------+
+| sum(salary) |
++-------------+
+|      110000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  55000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*);
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary);
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> select count(salary) from employee;
++---------------+
+| count(salary) |
++---------------+
+|             2 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql>  insert into employee values("sanjo","t","c",s,"2001-04-04","kuriyachira","male",50000,102,6);
+[1]+  Stopped                 sudo mysql -u "sreeharip" -p
+s5csebbatch2@an27-System-Product-Name:~$ sudo mysql -u "sreeharip" -p
+[sudo] password for s5csebbatch2: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Company;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | NO   |     | NULL    |       |
+| Mname    | varchar(20) | NO   |     | NULL    |       |
+| Lname    | varchar(20) | NO   |     | NULL    |       |
+| Ssn      | int         | NO   | PRI | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  | MUL | NULL    |       |
+| Dno      | int         | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> insert into employee values("sanjo","t","s",3,"2002-04-04","puzhakkal","male",70000,103,7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values("sarin","madhav","m",4,"2002-04-05","manjakkad","male",80000,104,8);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   6 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   8 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.01 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       80000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  65000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from employee;
++---------------+
+| count(salary) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee order by Fname;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   8 |
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   6 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE table_name
+    -> SET column1 = value1, column2 = value2, ...
+    -> 
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '...' at line 2
+mysql> update employee
+    -> set salary = 50000 
+    -> where Ssn = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set salary = 70000  where Ssn = 4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  50000 |      102 |   6 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  70000 |      104 |   8 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee group by salary;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Company.employee.Fname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> update employee set Dno = 5  where Ssn = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set Dno = 7  where Ssn =4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  50000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  70000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> select dno,sum(salary) from employee group by dno having salary > 40000;
+ERROR 1054 (42S22): Unknown column 'salary' in 'having clause'
+mysql> select dno,sum(salary) from employee group by dno;
++-----+-------------+
+| dno | sum(salary) |
++-----+-------------+
+|   5 |      100000 |
+|   7 |      140000 |
++-----+-------------+
+2 rows in set (0.01 sec)
+
+mysql> update employee set salary = 60000  where Ssn = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set salary = 80000  where Ssn = 4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  60000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> update employee set salary = 90000  where Ssn = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> select Dno,salary from employee where salary > 70000 group by Dno;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Company.employee.salary' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select dno,sum(salary) as total from employee group by dno;
++-----+--------+
+| dno | total  |
++-----+--------+
+|   5 | 140000 |
+|   7 | 150000 |
++-----+--------+
+2 rows in set (0.00 sec)
+
+mysql> select Dno,sum(salary) from employee group by Dno having total > 14000;
+ERROR 1054 (42S22): Unknown column 'total' in 'having clause'
+mysql> select Dno,sum(salary) from employee group by Dno having sum(salary) > 4000;
++-----+-------------+
+| Dno | sum(salary) |
++-----+-------------+
+|   5 |      140000 |
+|   7 |      150000 |
++-----+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select Dno,sum(salary) from employee group by Dno having sum(salary) > 14000;
++-----+-------------+
+| Dno | sum(salary) |
++-----+-------------+
+|   5 |      140000 |
+|   7 |      150000 |
++-----+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select Dno,sum(salary) from employee group by Dno having sum(salary) > 140000;
++-----+-------------+
+| Dno | sum(salary) |
++-----+-------------+
+|   7 |      150000 |
++-----+-------------+
+1 row in set (0.00 sec)
+
+mysql> set autommit = 0;
+ERROR 1193 (HY000): Unknown system variable 'autommit'
+mysql> set autocommit =0
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLPYEE;
+ERROR 1146 (42S02): Table 'Company.EMPLPYEE' doesn't exist
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |  50000 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> update employee set salary= 1  where Ssn = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> update employee set salary= 1000  where Ssn = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> update employee set salary= 2  where Ssn = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |      2 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update employee set salary= 3  where Ssn = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set salary= 4  where Ssn = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |      4 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> rollback s1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's1' at line 1
+mysql> rollback to s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |      2 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
