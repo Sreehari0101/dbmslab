@@ -1,0 +1,224 @@
+s5csebbatch2@an27-System-Product-Name:~$ sudo mysql -u "sreeharip" -p
+[sudo] password for s5csebbatch2: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Company            |
+| college            |
+| company            |
+| csb                |
+| information_schema |
+| mysql              |
+| names              |
+| organisations      |
+| patients           |
+| performance_schema |
+| sakila             |
+| student            |
+| students           |
+| sys                |
+| teachers           |
++--------------------+
+15 rows in set (0.00 sec)
+
+mysql> use Company;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_Company |
++-------------------+
+| dependent         |
+| dept              |
+| dept_locations    |
+| employee          |
+| project           |
+| works_on          |
++-------------------+
+6 rows in set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Fname    | varchar(20) | NO   |     | NULL    |       |
+| Mname    | varchar(20) | NO   |     | NULL    |       |
+| Lname    | varchar(20) | NO   |     | NULL    |       |
+| Ssn      | int         | NO   | PRI | NULL    |       |
+| Bdate    | date        | YES  |     | NULL    |       |
+| Address  | varchar(50) | YES  |     | NULL    |       |
+| gender   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| superSSn | int         | YES  | MUL | NULL    |       |
+| Dno      | int         | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| dname           | varchar(20) | YES  |     | NULL    |       |
+| dnumber         | int         | NO   | PRI | NULL    |       |
+| marg_ssn        | int         | YES  | MUL | NULL    |       |
+| marg_start_date | int         | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into dept values("Networking",5,1,25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values("data analysis",7,2,26);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept values("hiring",8,3,27);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values("marketing",9,4,28);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table oldemployee(Fname varchar(20),Mname varchar(20),Lname varchar(20),Ssn int,Bdate date,Address varchar(50),gender varchar(20
+),salary int,superSSn int,Dno int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into employee values("reshab","parakkadan","p",5,"2002-10-01","cherpulassery","male",500000,105,6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values("muhammed","ajmal","m",6,"2002-10-01","ottaplam","male",600000,106,8);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values("k","rahul","r",6,"2002-10-01","ottapalam","male",700000,107,9);
+ERROR 1062 (23000): Duplicate entry '6' for key 'employee.PRIMARY'
+mysql> insert into employee values("k","rahul","r",7,"2002-10-01","ottapalam","male",700000,107,9);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values("nived","raj","p",8,"2002-10-01","cherpulassery","male",500000,108,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into oldemployee values("reshab","parakkadan","p",5,"2002-10-01","cherpulassery","male",500000,105,6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into oldemployee values("muhammed","ajmal","m",6,"2002-10-01","ottaplam","male",600000,106,8);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into oldemployee values("k","rahul","r",7,"2002-10-01","ottapalam","male",700000,107,9);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into oldemployee values("nived","raj","p",8,"2002-10-01","cherpulassery","male",500000,108,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from employee where Ssn =5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from employee where Ssn =6;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from employee where Ssn =7;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from employee where Ssn=8;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Fname  | Mname  | Lname | Ssn | Bdate      | Address       | gender | salary | superSSn | Dno |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+| Sree   | hari   | p     |   1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |   5 |
+| vishnu | prasad | c     |   2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |   5 |
+| sanjo  | t      | s     |   3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |   7 |
+| sarin  | madhav | m     |   4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |   7 |
++--------+--------+-------+-----+------------+---------------+--------+--------+----------+-----+
+4 rows in set (0.01 sec)
+
+mysql> select * from oldemployee;
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Fname    | Mname      | Lname | Ssn  | Bdate      | Address       | gender | salary | superSSn | Dno  |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| reshab   | parakkadan | p     |    5 | 2002-10-01 | cherpulassery | male   | 500000 |      105 |    6 |
+| muhammed | ajmal      | m     |    6 | 2002-10-01 | ottaplam      | male   | 600000 |      106 |    8 |
+| k        | rahul      | r     |    7 | 2002-10-01 | ottapalam     | male   | 700000 |      107 |    9 |
+| nived    | raj        | p     |    8 | 2002-10-01 | cherpulassery | male   | 500000 |      108 |   10 |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee 
+    -> union
+    -> select * fom oldemployee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fom oldemployee' at line 3
+mysql> select * from employee union select * from oldemployee;
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Fname    | Mname      | Lname | Ssn  | Bdate      | Address       | gender | salary | superSSn | Dno  |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Sree     | hari       | p     |    1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |    5 |
+| vishnu   | prasad     | c     |    2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |    5 |
+| sanjo    | t          | s     |    3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |    7 |
+| sarin    | madhav     | m     |    4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |    7 |
+| reshab   | parakkadan | p     |    5 | 2002-10-01 | cherpulassery | male   | 500000 |      105 |    6 |
+| muhammed | ajmal      | m     |    6 | 2002-10-01 | ottaplam      | male   | 600000 |      106 |    8 |
+| k        | rahul      | r     |    7 | 2002-10-01 | ottapalam     | male   | 700000 |      107 |    9 |
+| nived    | raj        | p     |    8 | 2002-10-01 | cherpulassery | male   | 500000 |      108 |   10 |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee union all select * from oldemployee;
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Fname    | Mname      | Lname | Ssn  | Bdate      | Address       | gender | salary | superSSn | Dno  |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Sree     | hari       | p     |    1 | 2002-10-01 | cherpulassery | male   |      1 |      101 |    5 |
+| vishnu   | prasad     | c     |    2 | 2001-04-04 | kuriyachira   | male   |  90000 |      102 |    5 |
+| sanjo    | t          | s     |    3 | 2002-04-04 | puzhakkal     | male   |  70000 |      103 |    7 |
+| sarin    | madhav     | m     |    4 | 2002-04-05 | manjakkad     | male   |  80000 |      104 |    7 |
+| reshab   | parakkadan | p     |    5 | 2002-10-01 | cherpulassery | male   | 500000 |      105 |    6 |
+| muhammed | ajmal      | m     |    6 | 2002-10-01 | ottaplam      | male   | 600000 |      106 |    8 |
+| k        | rahul      | r     |    7 | 2002-10-01 | ottapalam     | male   | 700000 |      107 |    9 |
+| nived    | raj        | p     |    8 | 2002-10-01 | cherpulassery | male   | 500000 |      108 |   10 |
++----------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql>     SELECT column_lists FROM table_name WHERE condition  
+    ->     INTERSECT  
+    -> show tables;;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT column_lists FROM table_name WHERE condition  
+    INTERSECT  
+s' at line 1
+ERROR: 
+No query specified
+
+mysql> select * from oldemployee WHERE address IN("cherpulassery");
++--------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| Fname  | Mname      | Lname | Ssn  | Bdate      | Address       | gender | salary | superSSn | Dno  |
++--------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+| reshab | parakkadan | p     |    5 | 2002-10-01 | cherpulassery | male   | 500000 |      105 |    6 |
+| nived  | raj        | p     |    8 | 2002-10-01 | cherpulassery | male   | 500000 |      108 |   10 |
++--------+------------+-------+------+------------+---------------+--------+--------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
